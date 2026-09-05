@@ -1,0 +1,5 @@
+# The versions the five chapters were made with (September 2026). Install into Python 3.11: pip install -r requirements.txt
+pillow==10.4.0
+numpy==2.4.2
+modal==1.5.5
+yt-dlp

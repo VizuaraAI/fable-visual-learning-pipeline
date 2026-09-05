@@ -1,0 +1,20 @@
+# secrets: never commit keys (see .env.example)
+.env
+*.env
+# generated media and render work (too big for git; masters are shared separately)
+out/
+work/
+plates/
+segments/
+*.mp4
+*.wav
+*.mp3
+*.png
+!docs/sheets/*.png
+# reference videos and contact sheets of the channel's own videos stay local
+pipeline/projects/*/refs/
+# python / os
+__pycache__/
+*.pyc
+.DS_Store
+*.bak.*

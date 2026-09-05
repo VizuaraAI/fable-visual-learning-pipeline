@@ -1,0 +1,2 @@
+FIXES = []
+SENTENCE_FIXES = {}

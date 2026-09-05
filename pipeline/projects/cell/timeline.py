@@ -1,0 +1,116 @@
+"""Every on-screen text/graphic event of 'The Fundamental Unit of Life', absolute seconds and 720p positions (read off the
+4-second contact sheets projects/cell/refs/cell4_0*.png and full frames, timed against transcript_hi.txt).
+Built-in kinds (title, table, card, rect, pill, ...) are drawn by overlay.py; the project kinds (stag, shield, atext, harrow,
+obox, mol, table4, outro_vl) by projects/cell/overlay_ext.py.  Anchor names are the Tag*/Hp*/Op*/Rp*/...Anchor specks
+exported per frame by render_shot.py (see shotlist.TAGS).  The reference's on-screen spellings 'Robert Hook' and
+'Adenosine triphopshate' are corrected."""
+
+E = []
+def add(kind, t0, t1, **kw): E.append(dict(kind=kind, t0=t0, t1=t1, **kw))
+
+TOPICS = [('1.Cell', '00:19 - 02:35'), ('2.Cell Structure', '02:36 - 05:02'), ('3. Cell Organelles', '05:03 - 11:46'), ('4.Nucleus and Cytoplasm', '11:47 - 14:40')]
+ORG_TAGS = [('TagER', 'Endoplasmic\nreticulum'), ('TagGolgi', 'Golgi\napparatus'), ('TagMito2', 'Mitochondria'), ('TagLyso', 'Lysosomes')]
+
+def org_tags(t0, t1, size=13, tags=ORG_TAGS, pad=(12, 8), tip=22, alpha=1.0):
+    for name, txt in tags: add('shield', t0, t1, anchor=name, text=txt, size=size, pad=pad, tip=tip, alpha=alpha)
+
+# ---- intro (0-22.5): ghosted 'Cells' tag, purple title pills, the four-row topic table over the cell / cork / comb plates
+add('stag', 0.0, 19.5, x=16, y=14, text='Cells', size=19, alpha=0.4)
+add('title', 1.5, 19.5, text='The Fundamental Unit of Life', y=20, size=32)
+add('title', 4.5, 19.5, text='Complete Chapter', y=110, size=24)
+add('table4', 6.0, 19.5, topics=TOPICS)
+add('card', 19.5, 22.5, text='1.Cell')
+
+# ---- 1. Cell (22.5-157): Hooke's cork, honeycomb 'cells', the onion peel experiment
+add('atext', 23.0, 29.5, text='Cork', x=255, y=222, size=28)
+add('pill', 24.0, 60.0, text='Robert Hooke', x=1150, y=268, center=True, size=15)          # the portrait above it is not reproduced
+add('stag', 40.0, 60.0, x=1150, y=300, text='1665', size=26, center=True, pad=(28, 6))
+add('stag', 47.0, 58.5, anchor='CombAnchor', dx=0, dy=-120, text='Cells', size=22, arrow_len=1, pad=(30, 8))
+add('atext', 112.0, 118.5, text='Safranin solution', x=40, y=290, size=15)
+add('stag', 146.0, 157.0, x=16, y=14, text='Cells', size=19)
+add('card', 157.0, 159.5, text='2.Cell Structure')
+
+# ---- 2. Cell structure (159.5-304)
+add('stag', 159.5, 170.0, x=16, y=14, text='Cell structure and its components', size=17)
+add('atext', 178.0, 200.5, text='Plasma membrane', cx=412, y=52, size=26, arrow='anchor', anchor='MembraneAnchor', arrow_from=(426, 130))
+add('atext', 183.0, 200.5, text='Nucleus', cx=1010, y=300, size=26, arrow='anchor', anchor='NucleusAnchor', arrow_from=(930, 330))
+add('atext', 185.5, 200.5, text='Cytoplasm', cx=1050, y=410, size=22, arrow='anchor', anchor='CytoAnchor', arrow_from=(970, 425))
+add('stag', 204.0, 216.5, x=16, y=14, text='PLASMA MEMBRANE OR CELL MEMBRANE', size=17)
+add('harrow', 207.0, 212.0, anchor='MembraneAnchor', len=80, angle=-135)
+add('rect', 227.5, 231.5, box=(560, 250, 760, 430))
+add('atext', 232.0, 240.0, text='Selectively permeable\nmembrane', x=36, y=36, size=18)
+add('mol', 240.0, 284.0)
+add('atext', 244.0, 262.0, text='Diffusion', x=40, y=40, size=26)
+add('atext', 264.0, 284.0, text='Osmosis', x=40, y=40, size=26)
+add('atext', 284.0, 290.5, text='Flexible', x=1030, y=300, size=22)
+add('atext', 286.0, 292.0, text='Organic Molecules', x=1050, y=380, size=12)
+add('atext', 292.0, 297.0, text='Lipids\nand proteins', x=300, y=58, size=15)
+add('atext', 300.0, 304.0, text='Electron microscope', x=64, y=44, size=26)
+
+# ---- 3. Cell organelles (304-708)
+add('card', 304.0, 306.0, text='3. Cell Organelles')
+add('stag', 304.0, 311.5, x=16, y=14, text='Cell Organelles', size=19)
+add('shield', 306.0, 320.0, anchor='TagPlastid', text='Plastids', size=15, pad=(16, 10), tip=26)
+org_tags(306.0, 320.0, size=14, pad=(12, 8), tip=22)
+add('shield', 320.0, 364.0, anchor='TagER', text='Endoplasmic\nreticulum', size=24, pad=(22, 14), tip=36)
+add('shield', 320.0, 364.0, anchor='TagGolgi', text='Golgi\napparatus', size=24, pad=(22, 14), tip=36)
+add('shield', 326.0, 364.0, anchor='TagMito2', text='Mitochondria', size=18, pad=(16, 10), tip=28)
+add('shield', 326.0, 364.0, anchor='TagLyso', text='Lysosomes', size=18, pad=(16, 10), tip=28)
+add('shield', 364.0, 372.0, anchor='TagER', text='Endoplasmic\nreticulum', size=27, pad=(26, 16), tip=40)
+add('shield', 372.0, 376.0, anchor='TagGolgi', text='Golgi\napparatus', size=27, pad=(26, 16), tip=40)
+add('shield', 376.0, 382.0, anchor='TagLyso', text='Lysosomes', size=27, pad=(26, 16), tip=40)
+add('shield', 376.0, 382.0, anchor='TagGolgi', text='Golgi\napparatus', size=16, pad=(18, 10), tip=28)
+add('shield', 376.0, 382.0, anchor='TagMito1', text='Mitochondria', size=14, pad=(14, 8), tip=24)
+add('shield', 382.0, 390.0, anchor='TagMito', text='Mitochondria', size=27, pad=(26, 16), tip=40)
+add('shield', 390.0, 398.0, anchor='TagPlastid', text='Plastids', size=22, pad=(26, 14), tip=36)
+add('atext', 388.5, 396.0, text='Found in the\ncells of plants', cx=1110, y=36, size=14)
+add('shield', 398.0, 408.0, anchor='TagPlastid', text='Plastids', size=14, pad=(14, 8), tip=24)
+org_tags(398.0, 408.0, size=10, pad=(8, 5), tip=16)
+add('stag', 408.0, 480.0, x=16, y=14, text='1.ENDOPLASMIC RETICULUM', size=17)
+add('shield', 408.0, 436.0, anchor='TagER', text='Endoplasmic\nreticulum', size=22, pad=(22, 14), tip=34)
+add('shield', 440.0, 476.0, anchor='TagRough', text='Rough\nendoplasmic\nreticulum', size=24, pad=(22, 14), tip=36)
+add('atext', 444.0, 476.0, text='Smooth\nendoplasmic\nreticulum', cx=230, y=64, size=24)
+add('stag', 456.0, 462.0, anchor='TagRibo', dx=120, dy=-70, text='Ribosomes', size=16, arrow_len=1, pad=(22, 6))
+add('atext', 464.0, 470.0, text='Fat and Lipids', x=68, y=58, size=15)
+add('stag', 480.0, 548.0, x=16, y=14, text='2.Golgi Apparatus', size=17)
+add('shield', 480.0, 491.0, anchor='TagGolgi', text='Golgi\napparatus', size=27, pad=(26, 16), tip=40)
+add('pill', 482.5, 490.5, text='Camillo Golgi', x=1020, y=630, center=True, size=15)       # the portrait above it is not reproduced
+add('obox', 523.0, 541.0, x=440, y=22, w=360, h=328, title='Functions', title_size=30, size=28, gap=14, border=(225, 40, 40), lines=[('1.Storage', 525.5), ('2.Modification', 528.5), ('3.Packaging', 531.5)], fill_alpha=0.35, pad=(22, 26))
+add('stag', 548.0, 590.0, x=16, y=14, text='3.Lysosomes', size=17)
+add('shield', 548.0, 553.5, anchor='TagLyso', text='Lysosomes', size=27, pad=(26, 16), tip=40)
+add('obox', 552.0, 586.0, x=880, y=64, w=372, h=296, title='Functions', title_size=24, size=17, gap=10, border=(225, 40, 40), lines=[('1.Filled with digestive', 554.0), ('Enzymes', 554.0), ('2.Waste disposal', 557.0), ('system', 557.0), ('3.Break complex', 560.0), ('substances', 560.0)], fill_alpha=0.35, pad=(18, 20))
+add('stag', 591.0, 605.0, x=16, y=14, text='4.Mitochondria', size=17)
+add('shield', 592.0, 600.0, anchor='TagMito', text='Mitochondria', size=27, pad=(26, 16), tip=40)
+add('shield', 600.0, 604.5, anchor='TagMito', text='Mitochondria', size=27, pad=(26, 16), tip=40)
+add('atext', 607.0, 612.5, text='Deeply Folded', anchor='TagFold', dx=-30, dy=-130, size=24, arrow='anchor', ady=-6)
+add('obox', 612.0, 627.0, x=1070, y=290, center=True, size=16, gap=4, border=(225, 40, 40), lines=['Adenosine', 'triphosphate'], pad=(16, 10), fill_alpha=0.45)
+add('obox', 627.0, 641.5, x=470, y=54, center=True, size=20, gap=4, border=(225, 40, 40), lines=['Adenosine', 'triphosphate'], pad=(18, 10), fill_alpha=0.45)
+add('harrow', 628.5, 641.5, x0=608, y0=92, x1=672, y1=92, shaft=5, head_w=12, head_l=20)
+add('obox', 629.5, 641.5, x=790, y=64, center=True, size=22, gap=4, border=(225, 40, 40), lines=['Energy'], pad=(24, 12), fill_alpha=0.45)
+add('stag', 647.0, 657.0, anchor='TagDNA', dx=-20, dy=-95, text='DNA', size=16, arrow_len=1, pad=(22, 6))
+add('stag', 651.0, 657.0, anchor='TagRibo', dx=110, dy=-70, text='Ribosomes', size=14, arrow_len=1, pad=(18, 5))
+add('stag', 664.0, 700.0, x=16, y=14, text='5.Plastids', size=17)
+add('obox', 667.0, 672.0, x=1070, y=64, center=True, size=20, border=(225, 40, 40), lines=['Present only in plant cells'], pad=(20, 8), fill_alpha=0.45)
+add('obox', 672.0, 696.0, x=110, y=150, w=372, h=54, size=24, border=(60, 230, 90), lines=['Chromoplasts'], pad=(20, 10), fill_alpha=0.45)
+add('obox', 676.0, 680.0, x=880, y=190, w=350, h=54, size=24, border=(240, 240, 240), lines=['Leucoplasts'], pad=(20, 10), fill_alpha=0.45)
+add('obox', 684.0, 696.0, x=100, y=282, w=372, h=54, size=24, border=(60, 230, 90), lines=['Chloroplasts'], pad=(20, 10), fill_alpha=0.45)
+add('obox', 700.0, 708.0, x=880, y=170, w=370, h=64, size=28, border=(240, 240, 240), lines=['Leucoplasts'], pad=(20, 12), fill_alpha=0.45)
+add('obox', 703.0, 708.0, x=58, y=110, w=192, h=176, title='Stored', title_size=26, title_color=(70, 225, 200), size=19, gap=6, border=(240, 240, 240), lines=[('1.Starch', 703.5), ('2.Oils', 704.5), ('3.Protein', 705.5)], pad=(16, 14), fill_alpha=0.45)
+
+# ---- 4. Nucleus and cytoplasm (708-881)
+add('card', 708.0, 710.5, text='4.Nucleus and Cytoplasm')
+add('stag', 708.0, 713.5, x=16, y=14, text='Nucleus and Cytoplasm', size=17)
+add('stag', 715.0, 732.0, x=16, y=14, text='Nucleus', size=19)
+add('shield', 732.0, 748.0, anchor='TagPro', text='Nucleus\nwithout\nMembrane', size=17, pad=(18, 10), tip=32)
+add('shield', 732.0, 748.0, anchor='TagEu', text='Nucleus\nMembrane', size=17, pad=(18, 10), tip=32)
+add('shield', 740.0, 748.0, anchor='TagPro', dy=-135, text='Prokaryotes', size=17, pad=(20, 12), tip=30)
+add('shield', 744.0, 748.0, anchor='TagEu', dy=-110, text='Eukaryotes', size=17, pad=(20, 12), tip=30)
+add('atext', 752.0, 762.5, text='Nuclear\nmembrane', anchor='TagNucMem', dx=-120, dy=-150, size=22, arrow='anchor', adx=-4, ady=-4)
+add('atext', 759.0, 766.0, text='Pores', anchor='TagPores', dx=140, dy=-20, size=26, arrow='anchor', arrow_from=None, adx=8)
+add('stag', 772.0, 781.0, anchor='TagChrom', dx=230, dy=-60, text='Chromosomes', size=20, arrow_len=1, pad=(26, 8))
+add('stag', 780.0, 792.0, anchor='TagDNA', dx=-40, dy=-140, text='DNA', size=20, pad=(26, 8))
+add('stag', 820.0, 842.0, x=16, y=14, text='Bacteria', size=19)
+add('atext', 836.0, 842.0, text='Nucleoid', x=1010, y=176, size=18)
+add('stag', 842.0, 881.0, x=16, y=14, text='Cytoplasm', size=19)
+add('atext', 856.0, 865.0, text='Cytoplasm', cx=1110, y=640, size=22, arrow='anchor', anchor='TagCyto', arrow_from=(1050, 636))
+add('outro_vl', 881.0, 891.1)
